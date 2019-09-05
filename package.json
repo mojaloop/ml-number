@@ -4,7 +4,8 @@
   "description": "Mojaloop Number Library implementation that handles decimal processing of amounts/numbers",
   "author": "ModusBox",
   "contributors": [
-    "ModusBox"
+    "ModusBox",
+    "Rajiv Mothilal <rajiv.mothilal@modusbox.com>"
   ],
   "license": "Apache-2.0",
   "keywords": [
