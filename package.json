@@ -14,16 +14,22 @@
     "mojaloop"
   ],
   "main": "src/index.js",
+  "pre-commit": [
+    "standard",
+    "dep:check",
+    "test"
+  ],
   "scripts": {
     "test": "npm run test:unit | faucet",
-    "pretest": "standard",
     "standard": "standard",
     "test:unit": "tapes 'test/unit/**/**.test.js'",
     "test:xunit": "npm run test:unit | tap-xunit",
     "test:coverage": "nyc --reporter=lcov --reporter=text-summary tapes -- 'test/unit/**/**.test.js'",
     "test:coverage-check": "npm run test:coverage && nyc check-coverage",
     "audit:resolve": "SHELL=sh resolve-audit",
-    "audit:check": "SHELL=sh check-audit"
+    "audit:check": "SHELL=sh check-audit",
+    "dep:check": "npx ncu -e 2",
+    "dep:update": "npx ncu -u"
   },
   "standard": {
     "ignore": []
@@ -35,8 +41,10 @@
     "bignumber.js": "9.0.0"
   },
   "devDependencies": {
+    "eslint": "6.3.0",
     "faucet": "0.0.1",
     "npm-audit-resolver": "1.5.0",
+    "npm-check-updates": "3.1.21",
     "nyc": "14.1.1",
     "pre-commit": "1.2.2",
     "standard": "14.1.0",

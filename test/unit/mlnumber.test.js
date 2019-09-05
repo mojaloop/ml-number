@@ -29,102 +29,108 @@ const MlNumber = require('../../src/mlnumber').MlNumber
 Test('MlNuber', mlNumberTest => {
   let numLib
 
-  mlNumberTest.beforeEach( test => {
-     numLib = new MlNumber({
-      DECIMAL_PLACES: 40,
-      ROUNDING_MODE: 7,
-      POW_PRECISION: 0
-    })
-    test.end()
-  })
+  // mlNumberTest.beforeEach( test => {
+  //    numLib = new MlNumber({
+  //     DECIMAL_PLACES: 40,
+  //     ROUNDING_MODE: 7,
+  //     POW_PRECISION: 0
+  //   })
+  //   test.end()
+  // })
 
   mlNumberTest.test('addlist should add a list of numbers', test => {
-    let sum = numLib.sumList([1,2,3])
-    test.equal(sum, '6')
+    let sum = new MlNumber([1,2,3]).sumList()
+    test.equal(sum.toString(), '6')
     test.end()
   })
 
   mlNumberTest.test('addlist should add a list of string numbers', test => {
-    let sum = numLib.sumList(['1','2','3'])
-    test.equal(sum, '6')
+    let sum = new MlNumber(['1','2','3']).sumList()
+    test.equal(sum.toString(), '6')
     test.end()
   })
 
   mlNumberTest.test('addlist should add a list of string numbers and normal numbers', test => {
-    let sum = numLib.sumList(['1',2,'3'])
-    test.equal(sum, '6')
+    let sum = new MlNumber(['1',2,'3']).sumList()
+    test.equal(sum.toString(), '6')
     test.end()
   })
 
   mlNumberTest.test('add should add 2 numbers', test => {
-    let add = numLib.add(1,2)
-    test.equal(add, '3')
+    let add = new MlNumber(1).add(2)
+    test.equal(add.toString(), '3')
     test.end()
   })
 
   mlNumberTest.test('add should add 2 string numbers', test => {
-    let add = numLib.add('1','2')
-    test.equal(add, '3')
+    let add = new MlNumber('1').add('2')
+    test.equal(add.toString(), '3')
+    test.end()
+  })
+
+  mlNumberTest.test('add should add 2 string numbers and return a number', test => {
+    let add = new MlNumber('1').add('2')
+    test.equal(add.toNumber(), 3)
     test.end()
   })
 
   mlNumberTest.test('add should add a string number and number', test => {
-    let add = numLib.add('1',2)
-    test.equal(add, '3')
+    let add = new MlNumber('1').add(2)
+    test.equal(add.toString(), '3')
     test.end()
   })
 
   mlNumberTest.test('multiply should multiply 2 numbers', test => {
-    let multiply = numLib.multiply(12,2)
-    test.equal(multiply, '24')
+    let multiply = new MlNumber(12).multiply(2)
+    test.equal(multiply.toNumber(), 24)
     test.end()
   })
 
   mlNumberTest.test('multiply should multiply 2 string numbers', test => {
-    let multiply = numLib.multiply('12','2')
-    test.equal(multiply, '24')
+    let multiply = new MlNumber('12').multiply('2')
+    test.equal(multiply.toString(), '24')
     test.end()
   })
 
   mlNumberTest.test('multiply should multiply a string number and normal number', test => {
-    let multiply = numLib.multiply('12',2)
-    test.equal(multiply, '24')
+    let multiply = new MlNumber('12').multiply(2)
+    test.equal(multiply.toString(), '24')
     test.end()
   })
 
   mlNumberTest.test('subtract should subtract 2 numbers', test => {
-    let difference = numLib.subtract(10,2)
-    test.equal(difference, '8')
+    let difference = new MlNumber(10).subtract(2)
+    test.equal(difference.toNumber(), 8)
     test.end()
   })
 
   mlNumberTest.test('subtract should subtract 2 string numbers', test => {
-    let difference = numLib.subtract('10','2')
-    test.equal(difference, '8')
+    let difference = new MlNumber('10').subtract('2')
+    test.equal(difference.toString(), '8')
     test.end()
   })
 
   mlNumberTest.test('subtract should subtract a string number and normal number', test => {
-    let difference = numLib.subtract('10',2)
-    test.equal(difference, '8')
+    let difference = new MlNumber('10').subtract(2)
+    test.equal(difference.toString(), '8')
     test.end()
   })
 
   mlNumberTest.test('divide should divide 2 numbers', test => {
-    let divide = numLib.divide(1,2)
-    test.equal(divide, '0.5')
+    let divide = new MlNumber(1).divide(2)
+    test.equal(divide.toNumber(), 0.5)
     test.end()
   })
 
   mlNumberTest.test('divide should divide 2 string numbers', test => {
-    let divide = numLib.divide('1','2')
-    test.equal(divide, '0.5')
+    let divide = new MlNumber('1').divide('2')
+    test.equal(divide.toString(), '0.5')
     test.end()
   })
 
   mlNumberTest.test('divide should divide a string number and normal number', test => {
-    let divide = numLib.divide('1',2)
-    test.equal(divide, '0.5')
+    let divide = new MlNumber('1').divide(2)
+    test.equal(divide.toString(), '0.5')
     test.end()
   })
 

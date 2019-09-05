@@ -31,33 +31,51 @@
 
 const BigNumber = require('bignumber.js')
 
-class MlNumber {
-  constructor(config = {}) {
-    BigNumber.config(config)
+function MlNumber(value) {
+  this._value = value
+  if (!Array.isArray(value)) {
+    this.MlNumber = new BigNumber(value)
+  } else {
+    this.MlNumber = new BigNumber(0)
   }
+  this.total = 0
 
-  sumList(valueArray) {
-    const total = valueArray.reduce((a, b) => {
+  this.sumList = () => {
+    this.total = this._value.reduce((a, b) => {
       return new BigNumber(a).plus(b)
     })
-    return total.toFixed()
+    return this
   }
 
-  add(value, addition) {
-    return new BigNumber(value).plus(addition).toFixed()
+  this.add = (addition) => {
+    this.total =  this.MlNumber.plus(addition)
+    return this
   }
 
-  multiply(value, product) {
-    return new BigNumber(value).multipliedBy(product).toFixed()
+  this.multiply = (product) => {
+    this.total = this.MlNumber.multipliedBy(product)
+    return this
   }
 
-  subtract(value, difference) {
-    return new BigNumber(value).minus(difference).toFixed()
+  this.subtract = (difference) => {
+    this.total = this.MlNumber.minus(difference)
+    return this
   }
 
-  divide (numerator, denominator) {
-    return new BigNumber(numerator).dividedBy(denominator).toFixed()
+  this.divide = (denominator) => {
+    this.total = this.MlNumber.dividedBy(denominator)
+    return this
   }
+
+  this.toString = () => {
+    return this.total.valueOf()
+  }
+
+  this.toNumber = () => {
+    return this.total.toNumber()
+  }
+
+  return this
 }
 
 module.exports = {
