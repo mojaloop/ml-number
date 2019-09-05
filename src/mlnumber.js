@@ -31,7 +31,7 @@
 
 const BigNumber = require('bignumber.js')
 
-function MlNumber(value) {
+function MlNumber (value) {
   this._value = value
   if (!Array.isArray(value)) {
     this.MlNumber = new BigNumber(value)
@@ -48,7 +48,7 @@ function MlNumber(value) {
   }
 
   this.add = (addition) => {
-    this.total =  this.MlNumber.plus(addition)
+    this.total = this.MlNumber.plus(addition)
     return this
   }
 
