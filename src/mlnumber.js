@@ -73,6 +73,10 @@ function MlNumber (value = 0) {
     return this.MlNumber.toNumber()
   }
 
+  this.toFixed = (decimalPlaces = 4, roundingMode = BigNumber.ROUND_UP) => {
+    return this.MlNumber.toFixed(decimalPlaces, roundingMode)
+  }
+
   return this
 }
 
