@@ -133,5 +133,11 @@ Test('MlNuber', mlNumberTest => {
     test.end()
   })
 
+  mlNumberTest.test('should take in string and be able to represent it as a number', test => {
+    const mlNumber = new MlNumber('1')
+    test.equal(mlNumber.toNumber(), 1)
+    test.end()
+  })
+
   mlNumberTest.end()
 })
