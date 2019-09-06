@@ -28,20 +28,20 @@ const MlNumber = require('../../src/mlnumber').MlNumber
 
 Test('MlNuber', mlNumberTest => {
   mlNumberTest.test('sumList should add a list of numbers', test => {
-    const sum = new MlNumber([1, 2, 3]).sumList()
+    const sum = new MlNumber().sumList([1, 2, 3])
     test.equal(sum.toString(), '6')
     test.end()
   })
 
   mlNumberTest.test('sumList should add a list of string numbers', test => {
-    const sum = new MlNumber(['1', '2', '3']).sumList()
+    const sum = new MlNumber().sumList(['1', '2', '3'])
     test.equal(sum.toString(), '6')
     test.end()
   })
 
   mlNumberTest.test('sumList should add a list of string numbers and normal numbers', test => {
-    const sum = new MlNumber(['1', 2, '3']).sumList()
-    test.equal(sum.toString(), '6')
+    const sum = new MlNumber().sumList(['1', 2, '3'])
+    test.equal(sum.toNumber(), 6)
     test.end()
   })
 
@@ -120,6 +120,16 @@ Test('MlNuber', mlNumberTest => {
   mlNumberTest.test('divide should divide a string number and normal number', test => {
     const divide = new MlNumber('1').divide(2)
     test.equal(divide.toString(), '0.5')
+    test.end()
+  })
+
+  mlNumberTest.test('all functions should be able to be strung together', test => {
+    const total = new MlNumber('2').add(10)
+    total.multiply(5)
+    total.subtract(10)
+    total.divide(2)
+    total.sumList([2,3])
+    test.equal(total.toString(), '30')
     test.end()
   })
 
