@@ -140,8 +140,8 @@ Test('MlNuber', mlNumberTest => {
   })
 
   mlNumberTest.test('toFixed should format the MlNumber to the supplied decimal place and rounding mode', test => {
-    const mlNumber = new MlNumber('1')
-    test.equal(mlNumber.toFixed(), '1.0000')
+    const mlNumber = new MlNumber('0.1').add(0.2)
+    test.equal(mlNumber.toFixed(), '0.3000')
     test.end()
   })
 
