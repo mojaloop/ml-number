@@ -22,7 +22,6 @@
   ],
   "scripts": {
     "test": "npm run test:unit | faucet",
-    "pretest": "standard",
     "standard": "standard",
     "test:unit": "tapes 'test/unit/**/**.test.js'",
     "test:xunit": "npm run test:unit | tap-xunit",

@@ -128,7 +128,7 @@ Test('MlNuber', mlNumberTest => {
     total.multiply(5)
     total.subtract(10)
     total.divide(2)
-    total.sumList([2,3])
+    total.sumList([2, 3])
     test.equal(total.toString(), '30')
     test.end()
   })

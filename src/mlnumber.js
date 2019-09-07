@@ -32,11 +32,7 @@
 const BigNumber = require('bignumber.js')
 
 function MlNumber (value = 0) {
-  if (!Array.isArray(value)) {
-    this.MlNumber = new BigNumber(value)
-  } else {
-    this.MlNumber = new BigNumber(0)
-  }
+  this.MlNumber = new BigNumber(value)
 
   this.sumList = (values) => {
     this.MlNumber = this.MlNumber.plus(values.reduce((a, b) => {
