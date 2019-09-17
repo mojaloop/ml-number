@@ -36,25 +36,25 @@ function MlNumber (value = 0) {
 
   this.sumList = (values) => {
     this.MlNumber = this.MlNumber.plus(values.reduce((a, b) => {
-      return new MlNumber(a).add(b).toNumber()
+      return new MlNumber(a).add(b)
     }))
     return this
   }
 
   this.add = (addition) => {
-    return new MlNumber(this.MlNumber.plus(addition).toNumber())
+    return new MlNumber(this.MlNumber.plus(addition))
   }
 
   this.multiply = (product) => {
-    return new MlNumber(this.MlNumber.multipliedBy(product).toNumber())
+    return new MlNumber(this.MlNumber.multipliedBy(product))
   }
 
   this.subtract = (difference) => {
-    return new MlNumber(this.MlNumber.minus(difference).toNumber())
+    return new MlNumber(this.MlNumber.minus(difference))
   }
 
   this.divide = (denominator) => {
-    return new MlNumber(this.MlNumber.dividedBy(denominator).toNumber())
+    return new MlNumber(this.MlNumber.dividedBy(denominator))
   }
 
   this.toString = () => {
