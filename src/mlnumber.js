@@ -35,10 +35,9 @@ function MlNumber (value = 0) {
   this.MlNumber = new BigNumber(value)
 
   this.sumList = (values) => {
-    this.MlNumber = this.MlNumber.plus(values.reduce((a, b) => {
+    return new MlNumber(this.MlNumber.plus(values.reduce((a, b) => {
       return new MlNumber(a).add(b)
-    }))
-    return this
+    })))
   }
 
   this.add = (addition) => {
