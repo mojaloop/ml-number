@@ -125,11 +125,16 @@ Test('MlNuber', mlNumberTest => {
 
   mlNumberTest.test('all functions should be able to be strung together', test => {
     const total = new MlNumber('2').add(10)
-    total.multiply(5)
-    total.subtract(10)
-    total.divide(2)
-    total.sumList([2, 3])
-    test.equal(total.toString(), '30')
+    const newTotal = total.multiply(5).subtract(10).divide(2).sumList([2, 3])
+    test.equal(newTotal.toString(), '30')
+    test.end()
+  })
+
+  mlNumberTest.test('all functions should be able to be strung together but original value must be unchanged', test => {
+    const total = new MlNumber('2').add(10)
+    const newTotal = total.multiply(5).subtract(10).divide(2).sumList([2, 3])
+    test.equal(newTotal.toString(), '30')
+    test.equal(total.toString(), '12')
     test.end()
   })
 

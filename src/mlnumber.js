@@ -42,23 +42,19 @@ function MlNumber (value = 0) {
   }
 
   this.add = (addition) => {
-    this.MlNumber = this.MlNumber.plus(addition)
-    return this
+    return new MlNumber(this.MlNumber.plus(addition).toNumber())
   }
 
   this.multiply = (product) => {
-    this.MlNumber = this.MlNumber.multipliedBy(product)
-    return this
+    return new MlNumber(this.MlNumber.multipliedBy(product).toNumber())
   }
 
   this.subtract = (difference) => {
-    this.MlNumber = this.MlNumber.minus(difference)
-    return this
+    return new MlNumber(this.MlNumber.minus(difference).toNumber())
   }
 
   this.divide = (denominator) => {
-    this.MlNumber = this.MlNumber.dividedBy(denominator)
-    return this
+    return new MlNumber(this.MlNumber.dividedBy(denominator).toNumber())
   }
 
   this.toString = () => {
