@@ -31,49 +31,49 @@
 
 const BigNumber = require('bignumber.js')
 
-function MlNumber (value = 0) {
-  this.MlNumber = new BigNumber(value)
+class MlNumber {
+  constructor (value = 0) {
+    this.MlNumber = new BigNumber(value)
+  }
 
-  this.sumList = (values) => {
+  sumList(values) {
     this.MlNumber = this.MlNumber.plus(values.reduce((a, b) => {
       return new MlNumber(a).add(b).toNumber()
     }))
     return this
   }
 
-  this.add = (addition) => {
+  add(addition) {
     this.MlNumber = this.MlNumber.plus(addition)
     return this
   }
 
-  this.multiply = (product) => {
+  multiply(product) {
     this.MlNumber = this.MlNumber.multipliedBy(product)
     return this
   }
 
-  this.subtract = (difference) => {
+  subtract(difference) {
     this.MlNumber = this.MlNumber.minus(difference)
     return this
   }
 
-  this.divide = (denominator) => {
+  divide(denominator) {
     this.MlNumber = this.MlNumber.dividedBy(denominator)
     return this
   }
 
-  this.toString = () => {
+  toString() {
     return this.MlNumber.valueOf()
   }
 
-  this.toNumber = () => {
+  toNumber() {
     return this.MlNumber.toNumber()
   }
 
-  this.toFixed = (decimalPlaces = 4, roundingMode = BigNumber.ROUND_UP) => {
+  toFixed(decimalPlaces = 4, roundingMode = BigNumber.ROUND_UP) {
     return this.MlNumber.toFixed(decimalPlaces, roundingMode)
   }
-
-  return this
 }
 
 module.exports = {
