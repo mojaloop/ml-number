@@ -142,7 +142,7 @@ class MlNumber {
    * @description Converts MlNumber to pretty string with decimal points
    *
    * @param {number} decimalPlaces - number of decimal points
-   * @param {number} roundingMode - rounding mode i.e ROUND_UP, ROUND_DOWN etc
+   * @param roundingMode - rounding mode i.e ROUND_UP, ROUND_DOWN etc
    *
    * @return {string} - Returns pretty string value with decimal points and rounding from MlNumber object
    */
