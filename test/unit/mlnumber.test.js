@@ -150,5 +150,19 @@ Test('MlNumber', mlNumberTest => {
     test.end()
   })
 
+  mlNumberTest.test('Do calculations with strings number and MlNumbers', test => {
+    const mlNumber = new MlNumber(9)
+    const total = new MlNumber('2').add(mlNumber).sumList([mlNumber, 5])
+    test.equal(total.toString(), '25')
+    test.end()
+  })
+
+  mlNumberTest.test('Create MlNumber with MlNumber variable', test => {
+    const mlNumber = new MlNumber(9)
+    const mlNumberMlNumber = new MlNumber(mlNumber)
+    test.deepEqual(mlNumber, mlNumberMlNumber, 'Ml number created from MlNumber are equal')
+    test.end()
+  })
+
   mlNumberTest.end()
 })

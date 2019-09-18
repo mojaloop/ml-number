@@ -19,8 +19,9 @@ npm install @mojaloop/ml-number
 To create a new instance of the MlNumber class(returns instance of MlNumber):
 ```javascript 1.8
 const MlNumber = require('@mojaloop/ml-number')
-const mlNumber = new MlNumber(6)
-//mlNumber = MlNumber: 6
+const mlNumber = new MlNumber(6) // can be instantiated with string or number of MlNumber
+const mlNumber2 = new MlNumber('6') // can be instantiated with string or number of MlNumber
+const mlNumber3 = new MlNumber(mlNumber2) // can be instantiated with string or number of MlNumber
 ```
 
 Use different function(returns new instance of new MlNumber):
@@ -31,11 +32,13 @@ const originalValue = new MlNumber(6) // = "{"MlNumber": "6"}"
 
 const additionResult = originalValue.add(12) // = "{"MlNumber": "18"}"
 
-const multiplyResult = originalValue.multiply(12) // = "{"MlNumber": "72"}"
+const multiplyResult = originalValue.multiply('12') // = "{"MlNumber": "72"}"
 
 const divisionResult = originalValue.divide(2) // = "{"MlNumber": "3"}"
 
-const subtractionResult = originalValue.subtract(2) // = "{"MlNumber": "4"}"
+const subtractionResult = originalValue.subtract('2') // = "{"MlNumber": "4"}"
+
+const mixedFunctionsValuesResult = new MlNumber('2').add(originalValue).sumList([additionResult, 5]) // = "{"MlNumber": "31"}"
 
 const differentFunctionsResult = originalValue.add(2).multiply(3).divide(2).subtract(2) // = "{"MlNumber": "10"}"
 
