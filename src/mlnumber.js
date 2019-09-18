@@ -52,7 +52,7 @@ class MlNumber {
    *
    * @description Adds a list of numbers to a MlNumber
    *
-   * @param {array} values Array of values can be string and or number values
+   * @param {array} values Array of values can be string and or number and or MlNumber values
    *
    * @return {MlNumber} - Returns a new MlNumber object and return a new Instance of MlNumber
    */
@@ -67,7 +67,7 @@ class MlNumber {
    *
    * @description Adds a number to a MlNumber
    *
-   * @param {string/number} addition - add value to MlNumber
+   * @param {string/number/MlNumber} addition - add value to MlNumber
    *
    * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
    */
@@ -80,7 +80,7 @@ class MlNumber {
    *
    * @description Multiplies a number and a MlNumber
    *
-   * @param {string/number} product - multiply value and a MlNumber
+   * @param {string/number/MlNumber} product - multiply value and a MlNumber
    *
    * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
    */
@@ -93,7 +93,7 @@ class MlNumber {
    *
    * @description Subtracts a number from a MlNumber
    *
-   * @param {string/number} difference - difference to be removed from a MlNumber
+   * @param {string/number/MlNumber} difference - difference to be removed from a MlNumber
    *
    * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
    */
@@ -106,7 +106,7 @@ class MlNumber {
    *
    * @description Divides a MlNumber by a value
    *
-   * @param {string/number} denominator - Divides and MlNumber by a value
+   * @param {string/number/MlNumber} denominator - Divides and MlNumber by a value
    *
    * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
    */
