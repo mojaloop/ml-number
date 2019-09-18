@@ -36,7 +36,7 @@ const Index = require('../../src')
 
 Test('Index', indexTest => {
   indexTest.test('Exports Util', test => {
-    test.equal(Index.MlNumber, require('../../src/mlnumber'))
+    test.equal(Index, require('../../src'))
     test.end()
   })
 
