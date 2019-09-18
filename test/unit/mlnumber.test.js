@@ -24,7 +24,7 @@
 'use strict'
 
 const Test = require('tapes')(require('tape'))
-const MlNumber = require('../../src').MlNumber
+const MlNumber = require('../../src')
 
 Test('MlNumber', mlNumberTest => {
   mlNumberTest.test('sumList should add a list of numbers', test => {

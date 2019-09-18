@@ -29,4 +29,4 @@
  ******/
 'use strict'
 
-exports.MlNumber = require('./mlnumber').MlNumber
+module.exports = require('./mlnumber').MlNumber
