@@ -16,8 +16,8 @@
   ],
   "main": "src/index.js",
   "pre-commit": [
-    "dep:check",
     "standard",
+    "dep:check",
     "test"
   ],
   "scripts": {
