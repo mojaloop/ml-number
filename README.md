@@ -16,33 +16,33 @@ npm install @mojaloop/ml-number
 
 ### Usage
 
-To create a new instance of the MlNumber class(returns instance of MlNumber):
+To create a new instance of the MLNumber class(returns instance of MLNumber):
 ```javascript 1.8
-const MlNumber = require('@mojaloop/ml-number')
-const mlNumber = new MlNumber(6) // can be instantiated with a number
-const mlNumber2 = new MlNumber('6') // can be instantiated with a string
-const mlNumber3 = new MlNumber(mlNumber2) // can be instantiated with a MlNumber
+const MLNumber = require('@mojaloop/ml-number')
+const mlNumber = new MLNumber(6) // can be instantiated with a number
+const mlNumber2 = new MLNumber('6') // can be instantiated with a string
+const mlNumber3 = new MLNumber(mlNumber2) // can be instantiated with a MLNumber
 ```
 
-Use different function(returns new instance of new MlNumber):
+Use different function(returns new instance of new MLNumber):
 ```javascript 1.8
-const MlNumber = require('@mojaloop/ml-number')
+const MLNumber = require('@mojaloop/ml-number')
 
-const originalValue = new MlNumber(6) // = "{"MlNumber": "6"}"
+const originalValue = new MLNumber(6) // = "{"MLNumber": "6"}"
 
-const additionResult = originalValue.add(12) // = "{"MlNumber": "18"}"
+const additionResult = originalValue.add(12) // = "{"MLNumber": "18"}"
 
-const multiplyResult = originalValue.multiply('12') // = "{"MlNumber": "72"}"
+const multiplyResult = originalValue.multiply('12') // = "{"MLNumber": "72"}"
 
-const divisionResult = originalValue.divide(2) // = "{"MlNumber": "3"}"
+const divisionResult = originalValue.divide(2) // = "{"MLNumber": "3"}"
 
-const subtractionResult = originalValue.subtract('2') // = "{"MlNumber": "4"}"
+const subtractionResult = originalValue.subtract('2') // = "{"MLNumber": "4"}"
 
-const mixedFunctionsValuesResult = new MlNumber('2').add(originalValue).sumList([additionResult, 5]) // = "{"MlNumber": "31"}"
+const mixedFunctionsValuesResult = new MLNumber('2').add(originalValue).sumList([additionResult, 5]) // = "{"MLNumber": "31"}"
 
-const differentFunctionsResult = originalValue.add(2).multiply(3).divide(2).subtract(2) // = "{"MlNumber": "10"}"
+const differentFunctionsResult = originalValue.add(2).multiply(3).divide(2).subtract(2) // = "{"MLNumber": "10"}"
 
-const sumListResult = originalValue.sumList([2,3]) // = "{"MlNumber": "11"}"
+const sumListResult = originalValue.sumList([2,3]) // = "{"MLNumber": "11"}"
 
 const toStringResult = additionResult.toString() // = "18"
 

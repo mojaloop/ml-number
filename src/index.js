@@ -23,10 +23,11 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
  - Rajiv Mothilal <rajiv.mothilal@modusbox.com>
 
  --------------
  ******/
 'use strict'
 
-module.exports = require('./mlnumber').MlNumber
+module.exports = require('./mlnumber').MLNumber

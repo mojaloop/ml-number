@@ -23,6 +23,7 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
  - Rajiv Mothilal <rajiv.mothilal@modusbox.com>
 
  --------------
@@ -32,125 +33,125 @@
 const BigNumber = require('bignumber.js')
 
 /**
- * MlNumber class for performing
+ * MLNumber class for performing
  *
- * Once you instantiate this class, a MlNumber object will be returned.
+ * Once you instantiate this class, a MLNumber object will be returned.
  *
  * @example
- * let mlNumber = new MlNumber(6)
+ * let mlNumber = new MLNumber(6)
  *
- * @param {string/number/MlNumber} value - value to be transposed to MlNumber
+ * @param {string/number/MLNumber} value - value to be transposed to MLNumber
  * @constructor
  */
-class MlNumber {
-  constructor(value = 0) {
-    this.MlNumber = new BigNumber(value)
+class MLNumber {
+  constructor (value = 0) {
+    this.mlNumber = new BigNumber(value)
   }
 
   /**
    * @function sumList
    *
-   * @description Adds a list of numbers to a MlNumber
+   * @description Adds a list of numbers to a MLNumber
    *
-   * @param {array} values Array of values can be string and or number and or MlNumber values
+   * @param {array} values Array of values can be string and or number and or MLNumber values
    *
-   * @return {MlNumber} - Returns a new MlNumber object and return a new Instance of MlNumber
+   * @return {MLNumber} - Returns a new MLNumber object and return a new Instance of MLNumber
    */
-  sumList(values) {
-    return new MlNumber(this.MlNumber.plus(values.reduce((a, b) => {
-      return new MlNumber(a).add(b)
+  sumList (values) {
+    return new MLNumber(this.mlNumber.plus(values.reduce((a, b) => {
+      return new MLNumber(a).add(b)
     })))
   }
 
   /**
    * @function add
    *
-   * @description Adds a number to a MlNumber
+   * @description Adds a number to a MLNumber
    *
-   * @param {string/number/MlNumber} addition - add value to MlNumber
+   * @param {string/number/MLNumber} addition - add value to MLNumber
    *
-   * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
+   * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
-  add(addition) {
-    return new MlNumber(this.MlNumber.plus(addition))
+  add (addition) {
+    return new MLNumber(this.mlNumber.plus(addition))
   }
 
   /**
    * @function multiply
    *
-   * @description Multiplies a number and a MlNumber
+   * @description Multiplies a number and a MLNumber
    *
-   * @param {string/number/MlNumber} product - multiply value and a MlNumber
+   * @param {string/number/MLNumber} product - multiply value and a MLNumber
    *
-   * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
+   * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
-  multiply(product) {
-    return new MlNumber(this.MlNumber.multipliedBy(product))
+  multiply (product) {
+    return new MLNumber(this.mlNumber.multipliedBy(product))
   }
 
   /**
    * @function subtract
    *
-   * @description Subtracts a number from a MlNumber
+   * @description Subtracts a number from a MLNumber
    *
-   * @param {string/number/MlNumber} difference - difference to be removed from a MlNumber
+   * @param {string/number/MLNumber} difference - difference to be removed from a MLNumber
    *
-   * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
+   * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
-  subtract(difference) {
-    return new MlNumber(this.MlNumber.minus(difference))
+  subtract (difference) {
+    return new MLNumber(this.mlNumber.minus(difference))
   }
 
   /**
    * @function divide
    *
-   * @description Divides a MlNumber by a value
+   * @description Divides a MLNumber by a value
    *
-   * @param {string/number/MlNumber} denominator - Divides and MlNumber by a value
+   * @param {string/number/MLNumber} denominator - Divides and MLNumber by a value
    *
-   * @return {MlNumber} - Returns a MlNumber object and return a new Instance of MlNumber
+   * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
-  divide(denominator) {
-    return new MlNumber(this.MlNumber.dividedBy(denominator))
+  divide (denominator) {
+    return new MLNumber(this.mlNumber.dividedBy(denominator))
   }
 
   /**
    * @function toString
    *
-   * @description Converts MlNumber to string representation
+   * @description Converts MLNumber to string representation
    *
-   * @return {string} - Returns string value from MlNumber object
+   * @return {string} - Returns string value from MLNumber object
    */
-  toString() {
-    return this.MlNumber.valueOf()
+  toString () {
+    return this.mlNumber.valueOf()
   }
 
   /**
    * @function toNumber
    *
-   * @description Converts MlNumber to number representation
+   * @description Converts MLNumber to number representation
    *
-   * @return {number} - Returns number value from MlNumber object
+   * @return {number} - Returns number value from MLNumber object
    */
-  toNumber() {
-    return this.MlNumber.toNumber()
+  toNumber () {
+    return this.mlNumber.toNumber()
   }
 
   /**
    * @function toFixed
    *
-   * @description Converts MlNumber to pretty string with decimal points
+   * @description Converts MLNumber to pretty string with decimal points
    *
    * @param {number} decimalPlaces - number of decimal points
    * @param roundingMode - rounding mode i.e ROUND_UP, ROUND_DOWN etc
    *
-   * @return {string} - Returns pretty string value with decimal points and rounding from MlNumber object
+   * @return {string} - Returns pretty string value with decimal points and rounding from MLNumber object
    */
   toFixed (decimalPlaces = 4, roundingMode = BigNumber.ROUND_UP) {
-    return this.MlNumber.toFixed(decimalPlaces, roundingMode)
+    return this.mlNumber.toFixed(decimalPlaces, roundingMode)
   }
 }
 
 module.exports = {
-  MlNumber
+  MLNumber
 }
