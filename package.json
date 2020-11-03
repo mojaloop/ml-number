@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/ml-number",
-  "version": "9.2.0",
+  "version": "11.0.0",
   "description": "Mojaloop Number Library implementation that handles decimal processing of amounts/numbers",
   "author": "ModusBox",
   "contributors": [
