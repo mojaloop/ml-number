@@ -1,56 +1,9 @@
 {
   "decisions": {
-    "1065|winston>async>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1065|sinon>@sinonjs/formatio>@sinonjs/samsam>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1065|sinon>@sinonjs/samsam>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1065|sinon>nise>@sinonjs/formatio>@sinonjs/samsam>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1065|standard>eslint>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1065|standard>eslint-plugin-import>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1065|tap-xunit>xmlbuilder>lodash": {
-      "madeAt": 0,
-      "decision": "fix"
-    },
-    "1184|npm-check-updates>pacote>make-fetch-happen>https-proxy-agent": {
-      "decision": "fix",
-      "madeAt": 1582278465503
-    },
-    "1184|npm-check-updates>pacote>npm-registry-fetch>make-fetch-happen>https-proxy-agent": {
-      "decision": "fix",
-      "madeAt": 1582278465503
-    },
-    "1300|nyc>istanbul-reports>handlebars": {
-      "decision": "fix",
-      "madeAt": 1582278490645
-    },
-    "1316|nyc>istanbul-reports>handlebars": {
-      "decision": "fix",
-      "madeAt": 1582278490645
-    },
-    "1324|nyc>istanbul-reports>handlebars": {
-      "decision": "fix",
-      "madeAt": 1582278490645
-    },
-    "1325|nyc>istanbul-reports>handlebars": {
-      "decision": "fix",
-      "madeAt": 1582278490645
+    "1179|faucet>minimist": {
+      "decision": "ignore",
+      "madeAt": 1604389956257,
+      "expiresAt": 1606981946065
     }
   },
   "rules": {},
