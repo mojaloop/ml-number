@@ -1,12 +1,13 @@
 {
   "name": "@mojaloop/ml-number",
-  "version": "11.0.0",
+  "version": "11.1.0",
   "description": "Mojaloop Number Library implementation that handles decimal processing of amounts/numbers",
   "author": "ModusBox",
   "contributors": [
     "ModusBox",
     "Georgi Georgiev <georgi.georgiev@modusbox.com>",
-    "Rajiv Mothilal <rajiv.mothilal@modusbox.com>"
+    "Rajiv Mothilal <rajiv.mothilal@modusbox.com>",
+    "Valentin Genev <valentin.genev@modusbox.com>"
   ],
   "license": "Apache-2.0",
   "keywords": [
@@ -40,18 +41,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "bignumber.js": "9.0.0"
+    "bignumber.js": "9.0.1"
   },
   "devDependencies": {
-    "eslint": "6.5.1",
+    "eslint": "7.26.0",
     "faucet": "0.0.1",
-    "npm-audit-resolver": "2.0.1",
-    "npm-check-updates": "3.1.23",
-    "nyc": "14.1.1",
+    "npm-audit-resolver": "2.3.0",
+    "npm-check-updates": "11.5.11",
+    "nyc": "15.1.0",
     "pre-commit": "1.2.2",
-    "standard": "14.3.1",
+    "standard": "16.0.3",
     "tap-xunit": "2.4.1",
-    "tape": "4.11.0",
+    "tape": "5.2.2",
     "tapes": "4.1.0"
   }
 }
