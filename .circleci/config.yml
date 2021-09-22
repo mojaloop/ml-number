@@ -402,6 +402,7 @@ workflows:
       - publish-snapshot:
           context: org-global
           requires:
+            - pr-tools/pr-title-check
             - setup
             - test-unit
             - test-coverage
