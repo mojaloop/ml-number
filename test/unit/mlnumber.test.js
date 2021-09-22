@@ -126,6 +126,18 @@ Test('MLNumber', mlNumberTest => {
     test.end()
   })
 
+  mlNumberTest.test('shiftedBy should return a number with shifted decimal values to the left', test => {
+    const shifted = new MLNumber('1').shiftedBy(-2)
+    test.equal(shifted.toString(), '0.01')
+    test.end()
+  })
+
+  mlNumberTest.test('shiftedBy should return a number with shifted decimal values to the right', test => {
+    const shifted = new MLNumber('1').shiftedBy(+2)
+    test.equal(shifted.toString(), '100')
+    test.end()
+  })
+
   mlNumberTest.test('all functions should be able to be strung together', test => {
     const total = new MLNumber('2').add(10)
     const newTotal = total.multiply(5).subtract(10).divide(2).sumList([2, 3])
