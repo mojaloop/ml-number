@@ -30,10 +30,6 @@ executors:
 defaults_working_directory: &defaults_working_directory
   working_directory: /home/circleci/project
 
-defaults_docker_node: &defaults_docker_node
-  docker:
-    - image: node:12.16.1-alpine
-
 defaults_Dependencies: &defaults_Dependencies |
     apk --no-cache add git
     apk --no-cache add ca-certificates
@@ -309,6 +305,8 @@ workflows:
   version: 2
   build_and_test:
     jobs:
+      - pr-tools/pr-title-check:
+          context: org-global
       - setup:
           context: org-global
           filters:
