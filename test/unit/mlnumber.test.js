@@ -132,6 +132,12 @@ Test('MLNumber', mlNumberTest => {
     test.end()
   })
 
+  mlNumberTest.test('shiftedBy should return a number with shifted decimal values to the left with 0-prefix string', test => {
+    const shifted = new MLNumber('0123').shiftedBy(-4)
+    test.equal(shifted.toString(), '0.0123')
+    test.end()
+  })
+
   mlNumberTest.test('shiftedBy should return a number with shifted decimal values to the right', test => {
     const shifted = new MLNumber('1').shiftedBy(+2)
     test.equal(shifted.toString(), '100')

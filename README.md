@@ -55,6 +55,8 @@ const toNumberResult = multiplyResult.toNumber() // = 72
 const toFixedResult = divisionResult.toFixed() // = "3.0000"
 
 const toFixedWithDecimalPlaceResult = subtractionResult.toFixed(7) // = "4.0000000"
+
+const shifted = new MLNumber('0123').shiftedBy(-4) // = "{"MLNumber": "0.0123"}"
 ```
 
 ## Running the tests
