@@ -116,6 +116,20 @@ class MLNumber {
   }
 
   /**
+   * @function shiftedBy
+   *
+   * @description Returns a MLNumber whose value is the value of this MLNumber shifted by n places.
+   *
+   * @param {number} n - The shift is of the decimal point, i.e. of powers of ten, and is to the left if n is negative or to the right if n is positive.
+   *
+   * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
+
+   */
+  shiftedBy (n) {
+    return new MLNumber(this.mlNumber.shiftedBy(n))
+  }
+
+  /**
    * @function toString
    *
    * @description Converts MLNumber to string representation
