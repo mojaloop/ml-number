@@ -187,7 +187,7 @@ jobs:
           path: /tmp/license-scanner/results
           prefix: licenses
 
-  build-snapshot:
+  publish-snapshot:
     <<: *defaults_working_directory
     <<: *defaults_docker_node
     steps:
@@ -347,20 +347,6 @@ workflows:
               ignore:
                 - /feature*/
                 - /bugfix*/
-      - build-snapshot:
-          context: org-global
-          requires:
-            - setup
-            - test-unit
-            - test-coverage
-            - vulnerability-check
-            - audit-licenses
-          filters:
-            tags:
-              only: /v[0-9]+(\.[0-9]+)*\-snapshot+((\.[0-9]+)?)/
-            branches:
-              ignore:
-                - /.*/
       # New commits to master release automatically
       - release:
           context: org-global
@@ -396,7 +382,21 @@ workflows:
             - audit-licenses
           filters:
             tags:
-              only: /.*/
+              only: /v[0-9]+(\.[0-9]+)*/
+            branches:
+              ignore:
+                - /.*/
+      - publish-snapshot:
+          context: org-global
+          requires:
+            - setup
+            - test-unit
+            - test-coverage
+            - vulnerability-check
+            - audit-licenses
+          filters:
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*\-snapshot+((\.[0-9]+)?)/
             branches:
               ignore:
                 - /.*/
