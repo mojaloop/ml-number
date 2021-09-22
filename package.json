@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/ml-number",
-  "version": "11.2.0",
+  "version": "11.1.0",
   "description": "Mojaloop Number Library implementation that handles decimal processing of amounts/numbers",
   "author": "ModusBox",
   "contributors": [
@@ -36,7 +36,8 @@
     "audit:resolve": "SHELL=sh resolve-audit --production",
     "audit:check": "SHELL=sh check-audit --production",
     "dep:check": "npx ncu -e 2",
-    "dep:update": "npx ncu -u"
+    "dep:update": "npx ncu -u",
+    "release": "standard-version --releaseCommitMessageFormat 'chore(release): {{currentTag}} [skip ci]'"
   },
   "standard": {
     "ignore": []
@@ -55,6 +56,7 @@
     "nyc": "15.1.0",
     "pre-commit": "1.2.2",
     "standard": "16.0.3",
+    "standard-version": "^9.3.1",
     "tap-xunit": "2.4.1",
     "tape": "5.3.1",
     "tapes": "4.1.0"
