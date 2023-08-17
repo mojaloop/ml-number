@@ -46,19 +46,19 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "bignumber.js": "9.0.1"
+    "bignumber.js": "9.1.1"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
-    "faucet": "0.0.1",
+    "eslint": "8.47.0",
+    "faucet": "0.0.4",
     "npm-audit-resolver": "2.3.1",
-    "npm-check-updates": "11.8.5",
+    "npm-check-updates": "16.12.1",
     "nyc": "15.1.0",
     "pre-commit": "1.2.2",
-    "standard": "16.0.3",
-    "standard-version": "^9.3.1",
+    "standard": "17.1.0",
+    "standard-version": "^9.5.0",
     "tap-xunit": "2.4.1",
-    "tape": "5.3.1",
+    "tape": "5.6.6",
     "tapes": "4.1.0"
   }
 }
