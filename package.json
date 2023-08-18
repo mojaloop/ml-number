@@ -51,7 +51,7 @@
   "devDependencies": {
     "eslint": "8.47.0",
     "faucet": "0.0.4",
-    "npm-check-updates": "16.12.1",
+    "npm-check-updates": "16.12.2",
     "npm-audit-resolver": "3.0.0-RC.0",
     "nyc": "15.1.0",
     "pre-commit": "1.2.2",
