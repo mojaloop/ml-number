@@ -31,13 +31,13 @@ executors:
 defaults_working_directory: &defaults_working_directory
   working_directory: /home/circleci/project
 
-defaults_Dependencies: &defaults_Dependencies |
+defaults_docker_Dependencies: &defaults_docker_Dependencies |
     apk --no-cache add git
     apk --no-cache add ca-certificates
     apk --no-cache add curl
     apk --no-cache add openssh-client
+    apk --no-cache add -t build-dependencies make gcc g++ python3 libtool autoconf automake
     apk --no-cache add bash
-    apk --no-cache add -t build-dependencies make gcc g++ python libtool autoconf automake
     npm install -g node-gyp
 
 defaults_awsCliDependencies: &defaults_awsCliDependencies |
@@ -100,7 +100,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           <<: *defaults_display_versions
@@ -118,7 +118,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           <<: *defaults_display_versions
@@ -145,7 +145,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - run:
           name: Install AWS CLI dependencies
           command: *defaults_awsCliDependencies
@@ -179,7 +179,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           <<: *defaults_display_versions
@@ -201,7 +201,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - run:
           <<: *defaults_license_scanner
       - checkout
@@ -222,7 +222,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           name: setup environment vars for SNAPSHOT release
@@ -241,7 +241,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           name: setup environment vars for LATEST release
@@ -259,7 +259,7 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - restore_cache:
           keys:
