@@ -87,7 +87,7 @@ jobs:
       - run:
           <<: *defaults_display_versions
       - run:
-          name: Update NPM install
+          name: Install NPM dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
