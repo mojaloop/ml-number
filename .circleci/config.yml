@@ -212,6 +212,8 @@ jobs:
           command: *defaults_docker_Dependencies
       - checkout
       - run:
+          <<: *defaults_configure_nvm
+      - run:
           <<: *defaults_display_versions
       - restore_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
