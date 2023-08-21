@@ -177,9 +177,9 @@ jobs:
       - run:
           name: Install AWS CLI dependencies
           command: *defaults_awsCliDependencies
+      - checkout
       - run:
           <<: *defaults_configure_nvm
-      - checkout
       - run:
           <<: *defaults_display_versions
       - restore_cache:
