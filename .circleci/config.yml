@@ -7,9 +7,8 @@ version: 2.1
 # Orbs used in this pipeline
 ###
 orbs:
-  anchore: anchore/anchore-engine@1.6.0
-  slack: circleci/slack@3.4.2
-  pr-tools: mojaloop/pr-tools@0.1.8
+  slack: circleci/slack@4.12.5
+  pr-tools: mojaloop/pr-tools@0.1.10
   github-release: h-matsuo/github-release@0.1.3
 
 ##
@@ -20,29 +19,33 @@ orbs:
 executors:
   default-docker:
     working_directory: /home/circleci/project
+    shell: "/bin/sh -leo pipefail" ## Ref: https://circleci.com/docs/env-vars/#alpine-linux
+    environment:
+      BASH_ENV: /etc/profile ## Ref: https://circleci.com/docs/env-vars/#alpine-linux
+      NVM_ARCH_UNOFFICIAL_OVERRIDE: x64-musl ## Ref: https://github.com/nvm-sh/nvm/issues/1102#issuecomment-550572252
     docker:
-      - image: node:12.16.1-alpine
+      - image: node:lts-alpine  # Ref: https://hub.docker.com/_/node?tab=tags&page=1&name=alpine
 
   default-machine:
+    shell: "/bin/bash -leo pipefail"
     machine:
-      image: ubuntu-1604:201903-01
+      image: ubuntu-2204:2023.04.2 # Ref: https://circleci.com/developer/machine/image/ubuntu-2204
 
 defaults_working_directory: &defaults_working_directory
   working_directory: /home/circleci/project
 
-defaults_Dependencies: &defaults_Dependencies |
+defaults_docker_Dependencies: &defaults_docker_Dependencies |
     apk --no-cache add git
     apk --no-cache add ca-certificates
     apk --no-cache add curl
     apk --no-cache add openssh-client
+    apk --no-cache add -t build-dependencies make gcc g++ python3 libtool autoconf automake
     apk --no-cache add bash
-    apk add --no-cache -t build-dependencies make gcc g++ python libtool autoconf automake
-    npm config set unsafe-perm true
     npm install -g node-gyp
 
 defaults_awsCliDependencies: &defaults_awsCliDependencies |
     apk --no-cache add \
-            python \
+            python3 \
             py-pip \
             groff \
             less \
@@ -60,13 +63,6 @@ defaults_npm_auth: &defaults_npm_auth
   name: Update NPM registry auth token
   command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
 
-defaults_npm_publish_version: &defaults_npm_publish
-  name: Update version to prerelease
-  command: |
-    source $BASH_ENV
-    echo "Publishing tag $CIRCLE_TAG"
-    npm publish --tag $CIRCLE_TAG --access public
-
 defaults_npm_publish_release: &defaults_npm_publish_release
   name: Publish NPM $RELEASE_TAG artifact
   command: |
@@ -74,16 +70,52 @@ defaults_npm_publish_release: &defaults_npm_publish_release
     echo "Publishing tag $RELEASE_TAG"
     npm publish --tag $RELEASE_TAG --access public
 
-defaults_slack_announcement: &defaults_slack_announcement
-  name: Slack announcement for tag releases
+defaults_configure_nvm: &defaults_configure_nvm
+  name: Configure NVM
   command: |
-    curl -X POST \
-      $SLACK_WEBHOOK_ANNOUNCEMENT \
-      -H 'Content-type: application/json' \
-      -H 'cache-control: no-cache' \
-      -d "{
-      \"text\": \"*${CIRCLE_PROJECT_REPONAME}* - Release \`${CIRCLE_TAG}\`: https://github.com/mojaloop/${CIRCLE_PROJECT_REPONAME}/releases/tag/${CIRCLE_TAG}\"
-    }"
+    cd $HOME
+    export ENV_DOT_PROFILE=$HOME/.profile
+    touch $ENV_DOT_PROFILE
+    echo "1. Export env variable"
+    export NVM_DIR="$HOME/.nvm"
+    if [ -z "$NVMRC_VERSION" ]; then
+      echo "==> Configuring NVMRC_VERSION!"
+      export NVMRC_VERSION=$(cat $CIRCLE_WORKING_DIRECTORY/.nvmrc)
+      echo "export NVMRC_VERSION=$NVMRC_VERSION" >> $ENV_DOT_PROFILE
+    fi
+    if [ -f "$NVM_DIR" ]; then
+      echo "==> $NVM_DIR exists. Skipping steps 2-4!"
+    else 
+      echo "==> $NVM_DIR does not exists. Executing steps 2-4!"
+      echo "2. Installing NVM"
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+      echo "3. Executing $NVM_DIR/nvm.sh"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+      # echo "4. Update $ENV_DOT_PROFILE"
+      # echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $ENV_DOT_PROFILE
+      # echo "export NVM_DIR=$NVM_DIR" >> $ENV_DOT_PROFILE
+    fi
+    ## Ref: https://github.com/nvm-sh/nvm/issues/1102#issuecomment-550572252
+    if [ ! -z "$NVM_ARCH_UNOFFICIAL_OVERRIDE" ]; then
+      echo "==> Handle NVM_ARCH_UNOFFICIAL_OVERRIDE=$NVM_ARCH_UNOFFICIAL_OVERRIDE!"
+      echo "nvm_get_arch() { nvm_echo \"${NVM_ARCH_UNOFFICIAL_OVERRIDE}\"; }" >> $ENV_DOT_PROFILE
+      echo "export NVM_NODEJS_ORG_MIRROR=https://unofficial-builds.nodejs.org/download/release" >> $ENV_DOT_PROFILE
+      source $ENV_DOT_PROFILE
+    fi
+    echo "4. Installing Node version: $NVMRC_VERSION"
+    nvm install $NVMRC_VERSION
+    nvm alias default $NVMRC_VERSION
+    nvm use $NVMRC_VERSION
+    cd $CIRCLE_WORKING_DIRECTORY
+
+defaults_display_versions: &defaults_display_versions
+  name: Display Versions
+  command: |
+    echo "What is the active version of Nodejs?"
+    echo "node: $(node --version)"
+    echo "yarn: $(yarn --version)"
+    echo "npm: $(npm --version)"
+    echo "nvm: $(nvm --version)"
 
 jobs:
   setup:
@@ -92,10 +124,14 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
-          name: Update NPM install
+          <<: *defaults_configure_nvm
+      - run:
+          <<: *defaults_display_versions
+      - run:
+          name: Install NPM dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
@@ -108,8 +144,12 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
+      - run:
+          <<: *defaults_configure_nvm
+      - run:
+          <<: *defaults_display_versions
       - restore_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
       - run:
@@ -123,7 +163,7 @@ jobs:
           command: npm -s run test:xunit > ./test/results/tape.xml
       - store_artifacts:
           path: ./test/results
-          prefix: test
+          destination: test
       - store_test_results:
           path: ./test/results
 
@@ -133,11 +173,15 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - run:
           name: Install AWS CLI dependencies
           command: *defaults_awsCliDependencies
       - checkout
+      - run:
+          <<: *defaults_configure_nvm
+      - run:
+          <<: *defaults_display_versions
       - restore_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
       - run:
@@ -145,7 +189,7 @@ jobs:
           command: npm -s run test:coverage-check
       - store_artifacts:
           path: coverage
-          prefix: test
+          destination: test
       - store_test_results:
           path: coverage/lcov.info
       - run:
@@ -165,8 +209,12 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
+      - run:
+          <<: *defaults_configure_nvm
+      - run:
+          <<: *defaults_display_versions
       - restore_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
       - run:
@@ -177,7 +225,7 @@ jobs:
           command: npm run audit:check --silent -- --json > ./audit/results/auditResults.json
       - store_artifacts:
           path: ./audit/results
-          prefix: audit
+          destination: audit
 
   audit-licenses:
     <<: *defaults_working_directory
@@ -185,10 +233,12 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - run:
           <<: *defaults_license_scanner
       - checkout
+      - run:
+          <<: *defaults_display_versions
       - restore_cache:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
       - run:
@@ -196,7 +246,7 @@ jobs:
           command: cd /tmp/license-scanner && pathToRepo=$CIRCLE_WORKING_DIRECTORY make run
       - store_artifacts:
           path: /tmp/license-scanner/results
-          prefix: licenses
+          destination: licenses
 
   publish-snapshot:
     <<: *defaults_working_directory
@@ -204,18 +254,31 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           name: setup environment vars for SNAPSHOT release
           command: |
             echo 'export RELEASE_TAG=$RELEASE_TAG_SNAPSHOT' >> $BASH_ENV
       - run:
+          name: Setup Slack config
+          command: |
+            echo "export SLACK_PROJECT_NAME=${CIRCLE_PROJECT_REPONAME}" >> $BASH_ENV
+            echo "export SLACK_RELEASE_TYPE='NPM Snapshot'" >> $BASH_ENV
+            echo "export SLACK_RELEASE_TAG=v${CIRCLE_TAG:1}" >> $BASH_ENV
+            echo "export SLACK_RELEASE_URL=https://www.npmjs.com/package/@mojaloop/${CIRCLE_PROJECT_REPONAME}/v/${CIRCLE_TAG:1}" >> $BASH_ENV
+            echo "export SLACK_BUILD_ID=${CIRCLE_BUILD_NUM}" >> $BASH_ENV
+            echo "export SLACK_CI_URL=${CIRCLE_BUILD_URL}" >> $BASH_ENV
+      - run:
           <<: *defaults_npm_auth
       - run:
           <<: *defaults_npm_publish_release
-      - run:
-          <<: *defaults_slack_announcement
+      - slack/notify:
+          event: pass
+          template: SLACK_TEMP_RELEASE_SUCCESS
+      - slack/notify:
+          event: fail
+          template: SLACK_TEMP_RELEASE_FAILURE
 
   publish:
     <<: *defaults_working_directory
@@ -223,25 +286,38 @@ jobs:
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - run:
           name: setup environment vars for LATEST release
           command: |
             echo 'export RELEASE_TAG=$RELEASE_TAG_PROD' >> $BASH_ENV
       - run:
+          name: Setup Slack config
+          command: |
+            echo "export SLACK_PROJECT_NAME=${CIRCLE_PROJECT_REPONAME}" >> $BASH_ENV
+            echo "export SLACK_RELEASE_TYPE='NPM Release'" >> $BASH_ENV
+            echo "export SLACK_RELEASE_TAG=v${CIRCLE_TAG:1}" >> $BASH_ENV
+            echo "export SLACK_RELEASE_URL=https://www.npmjs.com/package/@mojaloop/${CIRCLE_PROJECT_REPONAME}/v/${CIRCLE_TAG:1}" >> $BASH_ENV
+            echo "export SLACK_BUILD_ID=${CIRCLE_BUILD_NUM}" >> $BASH_ENV
+            echo "export SLACK_CI_URL=${CIRCLE_BUILD_URL}" >> $BASH_ENV
+      - run:
           <<: *defaults_npm_auth
       - run:
           <<: *defaults_npm_publish_release
-      - run:
-          <<: *defaults_slack_announcement
+      - slack/notify:
+          event: pass
+          template: SLACK_TEMP_RELEASE_SUCCESS
+      - slack/notify:
+          event: fail
+          template: SLACK_TEMP_RELEASE_FAILURE
 
   release:
     executor: default-docker
     steps:
       - run:
           name: Install general dependencies
-          command: *defaults_Dependencies
+          command: *defaults_docker_Dependencies
       - checkout
       - restore_cache:
           keys:
@@ -267,6 +343,7 @@ jobs:
 
   github-release:
     executor: default-machine
+    shell: "/bin/bash -eo pipefail"
     steps:
       - run:
           name: Install git
@@ -291,18 +368,29 @@ jobs:
           name: check the release changes
           command: |
             echo "Changes are: ${RELEASE_CHANGES}"
+      - run:
+          name: Setup Slack config
+          command: |
+            echo "export SLACK_PROJECT_NAME=${CIRCLE_PROJECT_REPONAME}" >> $BASH_ENV
+            echo "export SLACK_RELEASE_TYPE='Github Release'" >> $BASH_ENV
+            echo "export SLACK_RELEASE_TAG=v${RELEASE_TAG}" >> $BASH_ENV
+            echo "export SLACK_RELEASE_URL=https://github.com/mojaloop/${CIRCLE_PROJECT_REPONAME}/releases/tag/v${RELEASE_TAG}" >> $BASH_ENV
+            echo "export SLACK_BUILD_ID=${CIRCLE_BUILD_NUM}" >> $BASH_ENV
+            echo "export SLACK_CI_URL=${CIRCLE_BUILD_URL}" >> $BASH_ENV
       - github-release/create:
           github-token-variable: ${GITHUB_TOKEN}
           tag: v${RELEASE_TAG}
           title: v${RELEASE_TAG} Release
           description: ${RELEASE_CHANGES}
           file-path: CHANGELOG.md
-      - slack/status:
-          webhook: "$SLACK_WEBHOOK_ANNOUNCEMENT"
-          success_message: '*"${CIRCLE_PROJECT_REPONAME}"* - Release \`"v${RELEASE_TAG}"\` \nhttps://github.com/mojaloop/"${CIRCLE_PROJECT_REPONAME}"/releases/tag/"v${RELEASE_TAG}"'
+      - slack/notify:
+          event: pass
+          template: SLACK_TEMP_RELEASE_SUCCESS
+      - slack/notify:
+          event: fail
+          template: SLACK_TEMP_RELEASE_FAILURE
 
 workflows:
-  version: 2
   build_and_test:
     jobs:
       - pr-tools/pr-title-check:
