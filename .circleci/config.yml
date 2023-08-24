@@ -1,4 +1,4 @@
-# CircleCI v2 Config
+# CircleCI v2.1 Config
 version: 2.1
 
 ##
@@ -14,8 +14,10 @@ orbs:
 ##
 # defaults
 #
-# YAML defaults templates, in alphabetical order
+# YAML defaults templates
 ##
+
+## Default 'default-docker' executor dependencies
 defaults_docker_Dependencies: &defaults_docker_Dependencies |
     apk --no-cache add git
     apk --no-cache add ca-certificates
@@ -33,17 +35,6 @@ defaults_license_scanner: &defaults_license_scanner
     git clone https://github.com/mojaloop/license-scanner /tmp/license-scanner
     cd /tmp/license-scanner && make build default-files set-up
 
-defaults_npm_auth: &defaults_npm_auth
-  name: Update NPM registry auth token
-  command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-
-defaults_npm_publish_release: &defaults_npm_publish_release
-  name: Publish NPM $RELEASE_TAG artifact
-  command: |
-    source $BASH_ENV
-    echo "Publishing tag $RELEASE_TAG"
-    npm publish --tag $RELEASE_TAG --access public
-
 defaults_export_version_from_package: &defaults_export_version_from_package
   name: Format the changelog into the github release body and get release tag
   command: |
@@ -56,6 +47,17 @@ defaults_configure_git: &defaults_configure_git
   command: |
     git config user.email ${GIT_CI_EMAIL}
     git config user.name ${GIT_CI_USER}
+
+defaults_npm_auth: &defaults_npm_auth
+  name: Update NPM registry auth token
+  command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+
+defaults_npm_publish_release: &defaults_npm_publish_release
+  name: Publish NPM $RELEASE_TAG artifact
+  command: |
+    source $BASH_ENV
+    echo "Publishing tag $RELEASE_TAG"
+    npm publish --tag $RELEASE_TAG --access public
 
 defaults_configure_nvm: &defaults_configure_nvm
   name: Configure NVM
@@ -130,6 +132,11 @@ executors:
     machine:
       image: ubuntu-2204:2023.04.2 # Ref: https://circleci.com/developer/machine/image/ubuntu-2204
 
+##
+# Jobs
+#
+# A map of CircleCI jobs
+##
 jobs:
   setup:
     executor: default-docker
