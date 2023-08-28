@@ -73,6 +73,25 @@ To run the test coverage tests locally
 npm run test:coverage
 ```
 
+
+## Auditing Dependencies
+
+We use `audit-ci` along with `npm audit` to check dependencies for node vulnerabilities, and keep track of resolved dependencies with an `audit-ci.jsonc` file.
+
+To start a new resolution process, run:
+
+```bash
+npm run audit:fix
+```
+
+You can then check to see if the CI will pass based on the current dependencies with:
+
+```bash
+npm run audit:check
+```
+
+The [audit-ci.jsonc](./audit-ci.jsonc) contains any audit-exceptions that cannot be fixed to ensure that CircleCI will build correctly.
+
 ## Automated Releases
 
 As part of our CI/CD process, we use a combination of CircleCI, standard-version
