@@ -31,8 +31,8 @@
     "lint:fix": "npm run standard:fix",
     "test:unit": "tape 'test/unit/**/**.test.js'",
     "test:xunit": "npm run test:unit | tap-xunit",
-    "test:coverage": "npm run test:unit -- --coverage --coverageThreshold='{}'",
-    "test:coverage-check": "npm run test:unit -- --coverage",
+    "test:coverage": "nyc --reporter=lcov --reporter=text-summary tape -- 'test/unit/**/**.test.js'",
+    "test:coverage-check": "npm run test:coverage && nyc check-coverage",
     "audit:fix": "npm audit fix",
     "audit:check": "npx audit-ci --config ./audit-ci.jsonc",
     "dep:check": "npx ncu -e 2",
@@ -61,8 +61,6 @@
     "tape": "5.9.0"
   },
   "overrides": {
-    "cross-spawn": "7.0.6",
-    "glob": "10.4.5",
-    "rimraf": "5.0.10"
+    "cross-spawn": "7.0.6"
   }
 }
