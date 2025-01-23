@@ -26,10 +26,10 @@
  ******/
 'use strict'
 
-const Test = require('tapes')(require('tape'))
+const test = require('tape')
 const MLNumber = require('../../src')
 
-Test('MLNumber', mlNumberTest => {
+test('MLNumber', mlNumberTest => {
   mlNumberTest.test('sumList should add a list of numbers', test => {
     const sum = new MLNumber().sumList([1, 2, 3])
     test.equal(sum.toString(), '6')

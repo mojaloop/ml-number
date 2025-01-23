@@ -77,7 +77,7 @@ defaults_configure_nvm: &defaults_configure_nvm
 
     if [ -f "$NVM_DIR" ]; then
       echo "==> $NVM_DIR exists. Skipping steps 2-4!"
-    else 
+    else
       echo "==> $NVM_DIR does not exists. Executing steps 2-4!"
 
       echo "2. Installing NVM"
@@ -206,8 +206,8 @@ jobs:
           key: dependency-cache-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           # This is needed for legacy core tests. Remove this once 'tape' is fully deprecated.
-          name: Install tape, tapes and tap-xunit
-          command: npm install tape tapes tap-xunit
+          name: Install tape and tap-xunit
+          command: npm install tape tap-xunit
       - run:
           name: Create dir for test results
           command: mkdir -p ./test/results
