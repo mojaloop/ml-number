@@ -46,13 +46,13 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "bignumber.js": "9.1.2"
+    "bignumber.js": "9.3.0"
   },
   "devDependencies": {
     "audit-ci": "^7.1.0",
-    "eslint": "9.20.1",
+    "eslint": "9.26.0",
     "faucet": "0.0.4",
-    "npm-check-updates": "17.1.14",
+    "npm-check-updates": "18.0.1",
     "nyc": "17.1.0",
     "pre-commit": "1.2.2",
     "standard": "17.1.2",
@@ -61,6 +61,10 @@
     "tape": "5.9.0"
   },
   "overrides": {
+    "@babel/helpers": "7.26.10",
     "cross-spawn": "7.0.6"
+  },
+  "engines": {
+    "node": "22.15.0"
   }
 }
