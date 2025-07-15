@@ -209,5 +209,19 @@ test('MLNumber', mlNumberTest => {
     test.end()
   })
 
+  mlNumberTest.test('isEqualTo should convert non-MLNumber values to BigNumber for comparison', test => {
+    const mlNumber = new MLNumber('123.456')
+    // Compare with string
+    test.ok(mlNumber.isEqualTo('123.456'), 'MLNumber is equal to string value')
+    // Compare with number
+    test.ok(mlNumber.isEqualTo(123.456), 'MLNumber is equal to number value')
+    // Compare with BigNumber directly
+    const BigNumber = require('bignumber.js')
+    test.ok(mlNumber.isEqualTo(new BigNumber('123.456')), 'MLNumber is equal to BigNumber value')
+    // Compare with different value
+    test.notOk(mlNumber.isEqualTo('654.321'), 'MLNumber is not equal to different string value')
+    test.end()
+  })
+
   mlNumberTest.end()
 })
