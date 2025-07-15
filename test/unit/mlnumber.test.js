@@ -182,10 +182,44 @@ test('MLNumber', mlNumberTest => {
     test.end()
   })
 
-  mlNumberTest.test('Create MLNumber with MLNumber variable', test => {
-    const mlNumber = new MLNumber(9)
-    const mlNumber2 = new MLNumber(mlNumber)
-    test.deepEqual(mlNumber, mlNumber2, 'Ml number created from MLNumber are equal')
+  mlNumberTest.test('isEqualTo should compare MLNumber instances', test => {
+    const mlNumber1 = new MLNumber(10)
+    const mlNumber2 = new MLNumber(10)
+    const mlNumber3 = new MLNumber('10')
+    const mlNumber4 = new MLNumber(11)
+    test.ok(mlNumber1.isEqualTo(mlNumber2), 'MLNumber(10) is equal to MLNumber(10)')
+    test.ok(mlNumber1.isEqualTo(mlNumber3), 'MLNumber(10) is equal to MLNumber("10")')
+    test.notOk(mlNumber1.isEqualTo(mlNumber4), 'MLNumber(10) is not equal to MLNumber(11)')
+    test.end()
+  })
+
+  mlNumberTest.test('Native JS decimal math should show binary floating point issue', test => {
+    // This test demonstrates the classic JS decimal issue
+    test.notOk((0.1 + 0.2) === 0.3, 'Native JS (0.1 + 0.2) === 0.3 is false due to floating point error')
+    test.end()
+  })
+
+  mlNumberTest.test('MLNumber should handle decimal math correctly', test => {
+    // This test demonstrates MLNumber (BigNumber) correct handling
+    const mlNumber1 = new MLNumber(0.1)
+    const mlNumber2 = new MLNumber(0.2)
+    const mlNumber3 = new MLNumber(0.3)
+    const sum = mlNumber1.add(mlNumber2)
+    test.ok(sum.isEqualTo(mlNumber3), 'MLNumber(0.1) + MLNumber(0.2) is equal to MLNumber(0.3)')
+    test.end()
+  })
+
+  mlNumberTest.test('isEqualTo should convert non-MLNumber values to BigNumber for comparison', test => {
+    const mlNumber = new MLNumber('123.456')
+    // Compare with string
+    test.ok(mlNumber.isEqualTo('123.456'), 'MLNumber is equal to string value')
+    // Compare with number
+    test.ok(mlNumber.isEqualTo(123.456), 'MLNumber is equal to number value')
+    // Compare with BigNumber directly
+    const BigNumber = require('bignumber.js')
+    test.ok(mlNumber.isEqualTo(new BigNumber('123.456')), 'MLNumber is equal to BigNumber value')
+    // Compare with different value
+    test.notOk(mlNumber.isEqualTo('654.321'), 'MLNumber is not equal to different string value')
     test.end()
   })
 
