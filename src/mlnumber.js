@@ -164,6 +164,24 @@ class MLNumber {
   toFixed (decimalPlaces = 4, roundingMode = BigNumber.ROUND_UP) {
     return this.mlNumber.toFixed(decimalPlaces, roundingMode)
   }
+
+  /**
+   * @function isEqualTo
+   *
+   * @description Checks if MLNumber is equal to another value
+   *
+   * @param {string|number|MLNumber} value - Value to compare
+   * @return {boolean} - Returns true if equal, false otherwise
+   */
+  isEqualTo (value) {
+    let compareValue
+    if (value instanceof MLNumber) {
+      compareValue = value.mlNumber
+    } else {
+      compareValue = new BigNumber(value)
+    }
+    return this.mlNumber.isEqualTo(compareValue)
+  }
 }
 
 module.exports = {
