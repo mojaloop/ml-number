@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.3.0](https://github.com/mojaloop/ml-number/compare/v11.2.7...v11.3.0) (2025-07-15)
+
+
+### Features
+
+* added isequal to function ([#40](https://github.com/mojaloop/ml-number/issues/40)) ([40c2a0d](https://github.com/mojaloop/ml-number/commit/40c2a0dc3958d25c942d6288359e7289e45db62e))
+
 ### [11.2.7](https://github.com/mojaloop/ml-number/compare/v11.2.6...v11.2.7) (2025-02-19)
 
 ### [11.2.6](https://github.com/mojaloop/ml-number/compare/v11.2.5...v11.2.6) (2025-01-24)
