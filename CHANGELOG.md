@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.4.0](https://github.com/mojaloop/ml-number/compare/v11.3.0...v11.4.0) (2025-09-24)
+
+
+### Features
+
+* add grype src scan ([#41](https://github.com/mojaloop/ml-number/issues/41)) ([7184d1e](https://github.com/mojaloop/ml-number/commit/7184d1e6203cc0861ec0e605e3498efa0d6d3c05))
+
 ## [11.3.0](https://github.com/mojaloop/ml-number/compare/v11.2.7...v11.3.0) (2025-07-15)
 
 
