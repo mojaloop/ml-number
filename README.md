@@ -8,6 +8,10 @@
 
 Mojaloop Number Library implementation that handles decimal processing of amounts/numbers
 
+## CI/CD
+
+This repository uses the [mojaloop/build](https://github.com/mojaloop/ci-config-orb-build) CircleCI ML orb for standardized CI/CD workflows, including automated Grype vulnerability scanning for source code security.
+
 ## Getting Started
 
 To use the ml-number library you need to add it as a dependency to your project with the following:
