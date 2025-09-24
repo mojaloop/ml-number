@@ -10,7 +10,7 @@ Mojaloop Number Library implementation that handles decimal processing of amount
 
 ## CI/CD
 
-This repository uses the [mojaloop/build](https://github.com/mojaloop/ci-config-orb-build) CircleCI orb for standardized CI/CD workflows, including automated Grype vulnerability scanning for source code security.
+This repository uses the [mojaloop/build](https://github.com/mojaloop/ci-config-orb-build) CircleCI ML orb for standardized CI/CD workflows, including automated Grype vulnerability scanning for source code security.
 
 ## Getting Started
 
