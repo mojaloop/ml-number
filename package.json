@@ -52,9 +52,9 @@
   },
   "devDependencies": {
     "audit-ci": "^7.1.0",
-    "eslint": "9.36.0",
+    "eslint": "9.39.1",
     "faucet": "0.0.4",
-    "npm-check-updates": "18.3.0",
+    "npm-check-updates": "19.1.2",
     "nyc": "17.1.0",
     "pre-commit": "1.2.2",
     "standard": "17.1.2",
