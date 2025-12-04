@@ -63,6 +63,7 @@
     "tape": "5.9.0"
   },
   "overrides": {
-    "cross-spawn": "7.0.6"
+    "cross-spawn": "7.0.6",
+    "js-yaml": "4.1.1"
   }
 }
