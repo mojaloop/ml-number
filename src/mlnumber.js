@@ -45,7 +45,7 @@ const BigNumber = require('bignumber.js')
  */
 class MLNumber {
   constructor (value = 0) {
-    this.mlNumber = new BigNumber(value)
+    this.mlNumber = new BigNumber(value instanceof MLNumber ? value.toString() : value)
   }
 
   /**
