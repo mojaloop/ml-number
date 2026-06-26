@@ -48,7 +48,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "bignumber.js": "10.0.2"
+    "bignumber.js": "9.3.1"
   },
   "devDependencies": {
     "audit-ci": "^7.1.0",
