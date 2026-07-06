@@ -33,6 +33,20 @@
 const BigNumber = require('bignumber.js')
 
 /**
+ * @function toBigNumberValue
+ *
+ * @description Unwraps MLNumber instances to their underlying BigNumber. bignumber.js 10+
+ * only accepts BigNumber, string, number or BigInt values (it no longer coerces arbitrary
+ * objects via String(value)), so MLNumber wrappers must be unwrapped before being passed
+ * to the BigNumber constructor or its arithmetic methods.
+ *
+ * @param {string|number|BigNumber|MLNumber} value - value to normalise
+ *
+ * @return {string|number|BigNumber} - value accepted by bignumber.js
+ */
+const toBigNumberValue = (value) => (value instanceof MLNumber ? value.mlNumber : value)
+
+/**
  * MLNumber class for performing
  *
  * Once you instantiate this class, a MLNumber object will be returned.
@@ -45,7 +59,7 @@ const BigNumber = require('bignumber.js')
  */
 class MLNumber {
   constructor (value = 0) {
-    this.mlNumber = new BigNumber(value)
+    this.mlNumber = new BigNumber(toBigNumberValue(value))
   }
 
   /**
@@ -58,9 +72,9 @@ class MLNumber {
    * @return {MLNumber} - Returns a new MLNumber object and return a new Instance of MLNumber
    */
   sumList (values) {
-    return new MLNumber(this.mlNumber.plus(values.reduce((a, b) => {
+    return this.add(values.reduce((a, b) => {
       return new MLNumber(a).add(b)
-    })))
+    }))
   }
 
   /**
@@ -73,7 +87,7 @@ class MLNumber {
    * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
   add (addition) {
-    return new MLNumber(this.mlNumber.plus(addition))
+    return new MLNumber(this.mlNumber.plus(toBigNumberValue(addition)))
   }
 
   /**
@@ -86,7 +100,7 @@ class MLNumber {
    * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
   multiply (product) {
-    return new MLNumber(this.mlNumber.multipliedBy(product))
+    return new MLNumber(this.mlNumber.multipliedBy(toBigNumberValue(product)))
   }
 
   /**
@@ -99,7 +113,7 @@ class MLNumber {
    * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
   subtract (difference) {
-    return new MLNumber(this.mlNumber.minus(difference))
+    return new MLNumber(this.mlNumber.minus(toBigNumberValue(difference)))
   }
 
   /**
@@ -112,7 +126,7 @@ class MLNumber {
    * @return {MLNumber} - Returns a MLNumber object and return a new Instance of MLNumber
    */
   divide (denominator) {
-    return new MLNumber(this.mlNumber.dividedBy(denominator))
+    return new MLNumber(this.mlNumber.dividedBy(toBigNumberValue(denominator)))
   }
 
   /**
