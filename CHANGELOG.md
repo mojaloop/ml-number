@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.4.5](https://github.com/mojaloop/ml-number/compare/v11.4.4...v11.4.5) (2026-07-08)
+
 ### [11.4.4](https://github.com/mojaloop/ml-number/compare/v11.4.3...v11.4.4) (2026-06-26)
 
 ### [11.4.3](https://github.com/mojaloop/ml-number/compare/v11.4.2...v11.4.3) (2026-02-13)
