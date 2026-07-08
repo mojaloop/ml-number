@@ -4,18 +4,7 @@
     // Only use one of ["low": true, "moderate": true, "high": true, "critical": true]
     "moderate": true,
     "allowlist": [ // NOTE: Please add as much information as possible to any items added to the allowList
-      /**
-        [2026-06-25] lodash prototype-pollution / ReDoS — no patched lodash release exists for these
-        advisories (npm's only offered "fix" is downgrading the deprecated standard-version, a major).
-        lodash is pulled in ONLY by standard-version's release tooling (dev dependency, exercised at
-        release time on CI) via conventional-changelog-conventionalcommits; it is NOT in the published
-        artifact — the sole runtime dependency is bignumber.js. Allowlisted pending migration off the
-        deprecated standard-version (e.g. to commit-and-tag-version).
-          - GHSA-r5fr-rjxr-66jc: lodash command injection
-          - GHSA-f23m-r3pf-42rh: lodash ReDoS
-      **/
-      "GHSA-r5fr-rjxr-66jc",
-      "GHSA-f23m-r3pf-42rh"
+      // Currently no fixes available for the following
     ]
   }
 
