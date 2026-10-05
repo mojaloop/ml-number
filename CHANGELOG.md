@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.4.6](https://github.com/mojaloop/ml-number/compare/v11.4.5...v11.4.6) (2026-10-05)
+
+
+### Bug Fixes
+
+* **security:** patch 5 vulnerabilities + update deps, orb ([#55](https://github.com/mojaloop/ml-number/issues/55)) ([f99628c](https://github.com/mojaloop/ml-number/commit/f99628c31b4fe402cb89add0a32b7423e72dc0b2))
+
 ### [11.4.5](https://github.com/mojaloop/ml-number/compare/v11.4.4...v11.4.5) (2026-07-08)
 
 ### [11.4.4](https://github.com/mojaloop/ml-number/compare/v11.4.3...v11.4.4) (2026-06-26)
