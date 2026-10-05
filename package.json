@@ -52,9 +52,9 @@
   },
   "devDependencies": {
     "audit-ci": "^7.1.0",
-    "eslint": "10.6.0",
+    "eslint": "10.11.0",
     "faucet": "0.0.4",
-    "npm-check-updates": "22.2.9",
+    "npm-check-updates": "23.1.0",
     "nyc": "18.0.0",
     "pre-commit": "2.0.0",
     "standard": "17.1.2",
@@ -64,7 +64,12 @@
   },
   "overrides": {
     "cross-spawn": "7.0.6",
-    "js-yaml": "4.2.0",
-    "lodash": "4.18.1"
+    "js-yaml": "4.3.2",
+    "lodash": "4.18.1",
+    "brace-expansion@1": "1.1.21",
+    "brace-expansion@5": "5.0.12",
+    "browserslist": "4.28.7",
+    "@humanfs/node": "0.16.8",
+    "baseline-browser-mapping": "2.11.0"
   }
 }
