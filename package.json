@@ -52,15 +52,15 @@
   },
   "devDependencies": {
     "audit-ci": "^7.1.0",
-    "eslint": "10.11.0",
+    "eslint": "10.14.0",
     "faucet": "0.0.4",
-    "npm-check-updates": "23.1.0",
+    "npm-check-updates": "23.1.1",
     "nyc": "18.0.0",
     "pre-commit": "2.0.0",
     "standard": "17.1.2",
     "standard-version": "^9.5.0",
     "tap-xunit": "2.4.1",
-    "tape": "5.10.2"
+    "tape": "5.10.3"
   },
   "overrides": {
     "cross-spawn": "7.0.6",
@@ -70,6 +70,10 @@
     "brace-expansion@5": "5.0.12",
     "browserslist": "4.28.7",
     "@humanfs/node": "0.16.8",
-    "baseline-browser-mapping": "2.11.0"
+    "baseline-browser-mapping": "2.11.0",
+    "brace-expansion@2": "2.1.7",
+    "glob@>=9 <14.0.2": "14.0.3",
+    "minimatch@>=8 <11.0.1": "11.0.4",
+    "handlebars": "4.7.10"
   }
 }
