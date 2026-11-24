@@ -37,8 +37,8 @@
     "test:coverage-check": "npm run test:coverage && nyc check-coverage",
     "audit:fix": "npm audit fix",
     "audit:check": "npx audit-ci --config ./audit-ci.jsonc",
-    "dep:check": "npx ncu -e 2",
-    "dep:update": "npx ncu -u",
+    "dep:check": "npx npm-check-updates -e 2",
+    "dep:update": "npx npm-check-updates -u",
     "release": "standard-version --releaseCommitMessageFormat 'chore(release): {{currentTag}} [skip ci]'"
   },
   "standard": {
@@ -52,15 +52,15 @@
   },
   "devDependencies": {
     "audit-ci": "^7.1.0",
-    "eslint": "10.11.0",
+    "eslint": "10.15.0",
     "faucet": "0.0.4",
-    "npm-check-updates": "23.1.0",
+    "npm-check-updates": "23.1.1",
     "nyc": "18.0.0",
     "pre-commit": "2.0.0",
     "standard": "17.1.2",
     "standard-version": "^9.5.0",
     "tap-xunit": "2.4.1",
-    "tape": "5.10.2"
+    "tape": "5.11.0"
   },
   "overrides": {
     "cross-spawn": "7.0.6",
@@ -70,6 +70,7 @@
     "brace-expansion@5": "5.0.12",
     "browserslist": "4.28.7",
     "@humanfs/node": "0.16.8",
-    "baseline-browser-mapping": "2.11.0"
+    "baseline-browser-mapping": "2.11.0",
+    "handlebars": "4.7.10"
   }
 }
